@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amara Tax Advisory | Trusted Tax Consultants in Nairobi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF7F2; --warm-white:#FFFDF9;
+    --clay:#C4714A; --clay-light:#E8936D; --clay-dark:#A05A38;
+    --forest:#2C4A3E; --forest-light:#3D6B5C; --gold:#D4A847;
+    --text-dark:#1E2D26; --text-mid:#4A5E55; --text-light:#8A9E96;
+    --border:#E8E0D5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto} /* we handle scroll manually */
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,247,242,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;transition:box-shadow .3s}
+  nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--forest);letter-spacing:-.5px;z-index:210}
+  .nav-logo span{color:var(--clay)}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+  .nav-links a{text-decoration:none;color:var(--text-mid);font-size:.9rem;font-weight:500;transition:color .2s;cursor:pointer}
+  .nav-links a:hover,.nav-links a.active{color:var(--clay)}
+  .nav-cta{background:var(--clay)!important;color:white!important;padding:.55rem 1.3rem;border-radius:50px;font-weight:600!important}
+  .nav-cta:hover{background:var(--clay-dark)!important}
+
+  /* HAMBURGER */
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:210;padding:6px;border-radius:8px;background:none;border:none;transition:background .2s}
+  .hamburger:hover{background:rgba(196,113,74,.08)}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--forest);border-radius:4px;transition:all .35s cubic-bezier(.4,0,.2,1);transform-origin:center}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* MOBILE MENU */
+  .mob-menu{display:none;position:fixed;inset:0;background:var(--warm-white);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;opacity:0;transform:translateY(-14px);transition:opacity .35s ease,transform .35s ease;pointer-events:none}
+  .mob-menu.open{opacity:1;transform:translateY(0);pointer-events:all}
+  .mob-menu a{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--text-dark);text-decoration:none;transition:color .2s;cursor:pointer}
+  .mob-menu a:hover{color:var(--clay)}
+  .mob-cta{background:var(--clay)!important;color:white!important;padding:.85rem 2.4rem;border-radius:50px;font-family:'DM Sans',sans-serif!important;font-size:1rem!important;font-weight:600!important;margin-top:.5rem}
+  .mob-cta:hover{background:var(--clay-dark)!important}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:100px 5% 60px;gap:4rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-100px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(196,113,74,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:orb 7s ease-in-out infinite}
+  .hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(44,74,62,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:orb 9s ease-in-out infinite reverse}
+  @keyframes orb{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.1) translateY(-20px)}}
+
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(196,113,74,.1);border:1px solid rgba(196,113,74,.25);color:var(--clay-dark);padding:.4rem 1rem;border-radius:50px;font-size:.82rem;font-weight:600;letter-spacing:.5px;margin-bottom:1.5rem;animation:fadeUp .7s ease forwards}
+  .hero-badge::before{content:'';width:7px;height:7px;background:var(--clay);border-radius:50%;animation:blink 2s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.3rem);font-weight:700;line-height:1.2;color:var(--text-dark);margin-bottom:1.2rem;animation:fadeUp .7s .12s ease forwards;opacity:0}
+  .hero h1 em{font-style:italic;color:var(--clay)}
+  .hero-desc{font-size:1.05rem;color:var(--text-mid);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp .7s .22s ease forwards;opacity:0}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .32s ease forwards;opacity:0}
+
+  .btn-primary{background:var(--clay);color:white;padding:.85rem 1.8rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(196,113,74,.3);cursor:pointer}
+  .btn-primary:hover{background:var(--clay-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(196,113,74,.4)}
+  .btn-secondary{display:flex;align-items:center;gap:.5rem;color:var(--forest);font-size:.95rem;font-weight:600;text-decoration:none;padding:.85rem 1rem;transition:gap .25s;cursor:pointer}
+  .btn-secondary:hover{gap:.85rem}
+  .btn-secondary::after{content:'→'}
+
+  .hero-image{position:relative;animation:fadeUp .9s .2s ease forwards;opacity:0}
+  .hero-card{background:var(--warm-white);border-radius:24px;padding:2.5rem;box-shadow:0 20px 60px rgba(0,0,0,.08);border:1px solid var(--border);position:relative;transition:transform .4s ease,box-shadow .4s ease}
+  .hero-card:hover{transform:translateY(-6px);box-shadow:0 32px 80px rgba(0,0,0,.12)}
+  .consultant-avatar{width:80px;height:80px;background:linear-gradient(135deg,var(--clay-light),var(--clay-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;color:white;font-weight:700;margin-bottom:1rem}
+  .hero-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:.3rem}
+  .hero-card .ctitle{color:var(--clay);font-size:.85rem;font-weight:600;margin-bottom:1.2rem}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+  .stat{text-align:center}
+  .stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--forest)}
+  .stat-lbl{font-size:.75rem;color:var(--text-light);margin-top:.2rem}
+  .fbadge{position:absolute;background:white;border-radius:12px;padding:.65rem 1rem;box-shadow:0 8px 24px rgba(0,0,0,.1);border:1px solid var(--border);font-size:.8rem;font-weight:600;color:var(--text-dark);display:flex;align-items:center;gap:.5rem}
+  .fbadge.top{top:-18px;right:-18px;animation:floatA 4s ease-in-out infinite}
+  .fbadge.bot{bottom:-18px;left:-18px;animation:floatB 4s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .bdot{width:8px;height:8px;border-radius:50%;background:#4CAF50;animation:blink 2s ease-in-out infinite}
+
+  /* TRUST */
+  .trust-bar{background:var(--forest);padding:1.2rem 5%;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+  .trust-item{display:flex;align-items:center;gap:.6rem;color:rgba(255,255,255,.8);font-size:.85rem;font-weight:500}
+  .ti{color:var(--gold)}
+
+  /* SECTIONS */
+  .section{padding:6rem 5%}
+  .slabel{display:inline-block;color:var(--clay);font-size:.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.8rem}
+  .stitle{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;color:var(--text-dark);line-height:1.25;max-width:520px;margin-bottom:1rem}
+  .ssub{color:var(--text-mid);font-size:1rem;line-height:1.7;max-width:520px;margin-bottom:3rem}
+
+  /* SERVICES */
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem}
+  .scard{background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:transform .35s,box-shadow .35s;position:relative;overflow:hidden}
+  .scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--clay),var(--clay-light));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .scard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+  .scard:hover::before{transform:scaleX(1)}
+  .sicon{width:50px;height:50px;background:rgba(196,113,74,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;transition:transform .3s}
+  .scard:hover .sicon{transform:scale(1.1) rotate(-3deg)}
+  .scard h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text-dark);margin-bottom:.6rem}
+  .scard p{color:var(--text-mid);font-size:.9rem;line-height:1.6}
+
+  /* HOW */
+  .how{background:var(--forest);padding:6rem 5%;position:relative;overflow:hidden}
+  .how::before{content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(212,168,71,.1) 0%,transparent 70%);border-radius:50%;animation:orb 8s ease-in-out infinite}
+  .how .slabel{color:var(--gold)}
+  .how .stitle{color:white}
+  .how .ssub{color:rgba(255,255,255,.6)}
+  .hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:1rem}
+  .step-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:rgba(255,255,255,.07);line-height:1;margin-bottom:.8rem;transition:color .3s}
+  .step:hover .step-num{color:rgba(212,168,71,.22)}
+  .step h3{font-family:'Playfair Display',serif;color:white;font-size:1.1rem;margin-bottom:.6rem}
+  .step p{color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.6}
+
+  /* CASES */
+  .cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem}
+  .ccard{background:var(--warm-white);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:transform .35s,box-shadow .35s}
+  .ccard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+  .ctag{display:inline-block;background:rgba(44,74,62,.08);color:var(--forest);font-size:.73rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.3rem .8rem;border-radius:50px;margin-bottom:1rem}
+  .ccard h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text-dark);margin-bottom:.6rem}
+  .ccard p{color:var(--text-mid);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem}
+  .cres{display:flex;align-items:center;gap:.6rem;color:var(--forest);font-size:.85rem;font-weight:600}
+  .cres::before{content:'✓';background:rgba(44,74,62,.1);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+
+  /* TESTIMONIAL */
+  .testi{background:linear-gradient(135deg,rgba(196,113,74,.06),rgba(44,74,62,.06));padding:6rem 5%;text-align:center}
+  .tquote{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,2.5vw,1.65rem);color:var(--text-dark);line-height:1.65;max-width:680px;margin:0 auto 2rem;font-style:italic}
+  .tauthor{display:flex;align-items:center;justify-content:center;gap:1rem}
+  .tavatar{width:48px;height:48px;background:linear-gradient(135deg,var(--forest-light),var(--forest));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem}
+  .tinfo strong{display:block;color:var(--text-dark);font-size:.9rem}
+  .tinfo span{color:var(--text-light);font-size:.8rem}
+  .stars{color:var(--gold);font-size:1.1rem;margin-bottom:1.5rem;letter-spacing:2px}
+
+  /* CONTACT */
+  .contact-wrap{padding:6rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+  .cinfo h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.2rem);color:var(--text-dark);margin-bottom:1rem;line-height:1.3}
+  .cinfo>p{color:var(--text-mid);line-height:1.7;margin-bottom:2rem}
+  .cdets{display:flex;flex-direction:column;gap:1rem}
+  .cdet{display:flex;align-items:center;gap:1rem;color:var(--text-mid);font-size:.9rem;transition:transform .2s}
+  .cdet:hover{transform:translateX(4px)}
+  .dico{width:42px;height:42px;background:rgba(196,113,74,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:background .2s,transform .2s}
+  .cdet:hover .dico{background:rgba(196,113,74,.18);transform:scale(1.08)}
+  .cform{background:var(--warm-white);border:1px solid var(--border);border-radius:24px;padding:2.5rem;box-shadow:0 8px 32px rgba(0,0,0,.05)}
+  .cform h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-dark);margin-bottom:.4rem}
+  .cform>.fp{color:var(--text-mid);font-size:.9rem;margin-bottom:1.8rem}
+  .fg{margin-bottom:1.2rem}
+  .fg label{display:block;font-size:.78rem;font-weight:700;color:var(--text-mid);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.8px}
+  .fg input,.fg select,.fg textarea{width:100%;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:.92rem;color:var(--text-dark);outline:none;transition:border-color .2s,box-shadow .2s}
+  .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--clay);box-shadow:0 0 0 3px rgba(196,113,74,.12)}
+  .fg textarea{resize:vertical;min-height:100px}
+  .fsub{width:100%;background:var(--clay);color:white;border:none;padding:.95rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s;margin-top:.5rem;box-shadow:0 4px 16px rgba(196,113,74,.25)}
+  .fsub:hover{background:var(--clay-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,113,74,.35)}
+  .wabtn{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;background:#25D366;color:white;border:none;padding:.95rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s;margin-top:.8rem;text-decoration:none}
+  .wabtn:hover{background:#1ebe5d;transform:translateY(-2px)}
+
+  /* FOOTER */
+  footer{background:var(--text-dark);padding:2.5rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  .flogo{font-family:'Playfair Display',serif;font-size:1.2rem;color:white;font-weight:700}
+  .flogo span{color:var(--clay-light)}
+  footer p{color:rgba(255,255,255,.35);font-size:.82rem}
+  .flinks{display:flex;gap:1.5rem}
+  .flinks a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.82rem;transition:color .2s;cursor:pointer}
+  .flinks a:hover{color:var(--clay-light)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding-top:110px;text-align:center;min-height:auto;padding-bottom:3rem}
+    .hero-desc{margin:0 auto 2rem}
+    .hero-actions{justify-content:center}
+    .hero-image{display:none}
+    .contact-wrap{grid-template-columns:1fr;gap:3rem}
+    .nav-links{display:none}
+    .hamburger{display:flex}
+    .mob-menu{display:flex}
+  }
+  @media(max-width:600px){
+    .section{padding:4rem 5%}
+    .how{padding:4rem 5%}
+    .trust-bar{gap:1rem;padding:1rem 5%}
+    .trust-item{font-size:.78rem}
+    .hgrid{grid-template-columns:1fr 1fr}
+    .cform{padding:1.8rem}
+    footer{flex-direction:column;text-align:center}
+    .flinks{justify-content:center}
+  }
+  @media(max-width:400px){
+    .hgrid,.sgrid,.cgrid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">Amara <span>Tax</span> Advisory</div>
+  <ul class="nav-links">
+    <li><a data-target="services">Services</a></li>
+    <li><a data-target="cases">Case Studies</a></li>
+    <li><a data-target="contact">About</a></li>
+    <li><a data-target="contact" class="nav-cta">Book Consultation</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mob">
+  <a data-target="services" class="mlink">Services</a>
+  <a data-target="cases" class="mlink">Case Studies</a>
+  <a data-target="contact" class="mlink">About</a>
+  <a data-target="contact" class="mlink mob-cta">Book Consultation</a>
+</div>
+
+<section class="hero" id="home">
+  <div>
+    <div class="hero-badge">Certified Tax Advisors · Nairobi, Kenya</div>
+    <h1>Helping <em>Kenyan businesses</em> stay compliant and grow.</h1>
+    <p class="hero-desc">We handle your KRA filings, tax compliance, and financial advisory — so you can focus on running your business without the stress.</p>
+    <div class="hero-actions">
+      <a data-target="contact" class="btn-primary">Book a Free Consultation</a>
+      <a data-target="services" class="btn-secondary">See Our Services</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card">
+      <div class="fbadge top"><div class="bdot"></div> Available for new clients</div>
+      <div class="consultant-avatar">A</div>
+      <h3>Amara Wanjiku, CPA</h3>
+      <div class="ctitle">Senior Tax Consultant</div>
+      <p style="color:var(--text-mid);font-size:.88rem;line-height:1.65">"Our goal is simple — make tax compliance stress-free for every Kenyan business we work with."</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">8+</div><div class="stat-lbl">Years Experience</div></div>
+        <div class="stat"><div class="stat-num">200+</div><div class="stat-lbl">Clients Served</div></div>
+        <div class="stat"><div class="stat-num">98%</div><div class="stat-lbl">Satisfaction</div></div>
+      </div>
+      <div class="fbadge bot">⭐ Rated 5.0 on Google</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar reveal">
+  <div class="trust-item"><span class="ti">✓</span> KRA Registered Tax Agent</div>
+  <div class="trust-item"><span class="ti">✓</span> ICPAK Certified</div>
+  <div class="trust-item"><span class="ti">✓</span> 200+ Businesses Served</div>
+  <div class="trust-item"><span class="ti">✓</span> 8 Years in Practice</div>
+</div>
+
+<section class="section" id="services">
+  <div class="reveal"><div class="slabel">What We Offer</div></div>
+  <h2 class="stitle reveal d1">Tax and financial services built for Kenyan businesses</h2>
+  <p class="ssub reveal d2">Whether you are a startup, SME, or established business — we have the expertise to keep you compliant and financially healthy.</p>
+  <div class="sgrid">
+    <div class="scard reveal d1"><div class="sicon">📋</div><h3>KRA Tax Compliance</h3><p>iTax filing, VAT returns, PAYE, withholding tax, and all statutory obligations handled accurately and on time.</p></div>
+    <div class="scard reveal d2"><div class="sicon">📊</div><h3>Business Tax Advisory</h3><p>Strategic tax planning to legally minimize your tax burden and maximize business profitability.</p></div>
+    <div class="scard reveal d3"><div class="sicon">🏢</div><h3>Company Registration</h3><p>Business registration, PIN applications, VAT registration, and all KRA compliance setup for new businesses.</p></div>
+    <div class="scard reveal d1"><div class="sicon">📁</div><h3>Bookkeeping & Accounts</h3><p>Monthly bookkeeping, financial statements, and management accounts that give you a clear picture of your business.</p></div>
+    <div class="scard reveal d2"><div class="sicon">⚖️</div><h3>Tax Dispute Resolution</h3><p>Representing clients in KRA audits, objections, and appeals. We protect your business from penalties.</p></div>
+    <div class="scard reveal d3"><div class="sicon">💼</div><h3>Payroll Management</h3><p>End-to-end payroll processing, NHIF, NSSF, SHIF, and Housing Levy compliance for your entire team.</p></div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="reveal"><div class="slabel">How It Works</div></div>
+  <h2 class="stitle reveal d1" style="color:white">Getting started is simple</h2>
+  <p class="ssub reveal d2" style="color:rgba(255,255,255,.6)">We make onboarding easy so you are covered from day one.</p>
+  <div class="hgrid">
+    <div class="step reveal d1"><div class="step-num">01</div><h3>Book a Free Call</h3><p>Tell us about your business and current tax situation. No obligation, no pressure.</p></div>
+    <div class="step reveal d2"><div class="step-num">02</div><h3>We Assess Your Needs</h3><p>We review your compliance status and identify risks or opportunities for your business.</p></div>
+    <div class="step reveal d3"><div class="step-num">03</div><h3>We Get to Work</h3><p>Once engaged, we handle everything — filings, returns, advisory — on time every time.</p></div>
+    <div class="step reveal d4"><div class="step-num">04</div><h3>You Stay Compliant</h3><p>Monthly updates keep you informed. No surprises, no penalties.</p></div>
+  </div>
+</section>
+
+<section class="section" id="cases">
+  <div class="reveal"><div class="slabel">Case Studies</div></div>
+  <h2 class="stitle reveal d1">Real results for real businesses</h2>
+  <p class="ssub reveal d2">Here is how we have helped businesses just like yours.</p>
+  <div class="cgrid">
+    <div class="ccard reveal d1"><div class="ctag">Retail Business</div><h3>Eliminating KES 180,000 in Penalties</h3><p>A Nairobi retail shop had 3 years of unfiled VAT returns. We filed all outstanding returns and negotiated with KRA to reduce penalties by 80%.</p><div class="cres">Saved KES 144,000 in penalty fees</div></div>
+    <div class="ccard reveal d2"><div class="ctag">Tech Startup</div><h3>Full Compliance Setup in 2 Weeks</h3><p>A fast-growing startup needed full compliance before a funding round. We handled registration, KRA PIN, VAT, and PAYE setup in 14 days.</p><div class="cres">Investor-ready compliance achieved</div></div>
+    <div class="ccard reveal d3"><div class="ctag">SME Manufacturing</div><h3>Reducing Tax Burden by 35%</h3><p>Through careful tax planning and restructuring of allowable deductions, we helped a manufacturing SME legally reduce their annual tax liability.</p><div class="cres">35% reduction in annual tax liability</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="stars reveal">★★★★★</div>
+  <p class="tquote reveal d1">"Before Amara Tax Advisory I was always stressed about KRA deadlines. Now everything is handled and I just focus on growing my business. Best decision I made."</p>
+  <div class="tauthor reveal d2">
+    <div class="tavatar">J</div>
+    <div class="tinfo"><strong>James Mwangi</strong><span>Director, Mwangi Logistics Ltd</span></div>
+  </div>
+</section>
+
+<section class="contact-wrap" id="contact">
+  <div class="cinfo reveal">
+    <div class="slabel">Get In Touch</div>
+    <h2>Ready to get your taxes sorted?</h2>
+    <p>Book a free 30 minute consultation and let us show you exactly how we can help your business stay compliant and stress-free.</p>
+    <div class="cdets">
+      <div class="cdet"><div class="dico">📍</div><div><strong style="color:var(--text-dark);font-size:.9rem">Office</strong><br>Upper Hill, Nairobi, Kenya</div></div>
+      <div class="cdet"><div class="dico">📞</div><div><strong style="color:var(--text-dark);font-size:.9rem">Phone</strong><br>+254 700 000 000</div></div>
+      <div class="cdet"><div class="dico">✉️</div><div><strong style="color:var(--text-dark);font-size:.9rem">Email</strong><br>hello@amaratax.co.ke</div></div>
+      <div class="cdet"><div class="dico">🕐</div><div><strong style="color:var(--text-dark);font-size:.9rem">Hours</strong><br>Mon – Fri, 8am – 6pm</div></div>
+    </div>
+  </div>
+  <div class="cform reveal d2">
+    <h3>Book a Free Consultation</h3>
+    <p class="fp">Fill in your details and we will reach out within 24 hours.</p>
+    <div class="fg"><label>Your Name</label><input type="text" placeholder="John Kamau"></div>
+    <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+254 7XX XXX XXX"></div>
+    <div class="fg"><label>Business Type</label><select><option>Select your business type</option><option>Sole Proprietor</option><option>Limited Company</option><option>Partnership</option><option>NGO / Trust</option></select></div>
+    <div class="fg"><label>What do you need help with?</label><textarea placeholder="e.g. KRA filing, bookkeeping, tax advisory..."></textarea></div>
+    <button class="fsub">Send Message</button>
+    <a href="https://wa.me/254700000000" class="wabtn">💬 Chat on WhatsApp Instead</a>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Amara <span>Tax</span> Advisory</div>
+  <p>© 2025 Amara Tax Advisory. All rights reserved.</p>
+  <div class="flinks">
+    <a data-target="services">Services</a>
+    <a data-target="cases">Case Studies</a>
+    <a data-target="contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var NAV_H = 68;
+
+  // ── Scroll to section ──
+  function goTo(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - NAV_H;
+    window.scrollTo({top:top, behavior:'smooth'});
+  }
+
+  // ── Attach data-target clicks everywhere ──
+  document.querySelectorAll('[data-target]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var id = el.getAttribute('data-target');
+      if(mob.classList.contains('open')) closeMenu();
+      setTimeout(function(){ goTo(id); }, mob.classList.contains('open') ? 320 : 0);
+    });
+  });
+
+  // ── Hamburger ──
+  var ham = document.getElementById('ham');
+  var mob = document.getElementById('mob');
+
+  function openMenu(){ ham.classList.add('open'); mob.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeMenu(){ ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow=''; }
+
+  ham.addEventListener('click', function(){
+    ham.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+
+  // attach close+scroll to mobile links
+  document.querySelectorAll('.mlink').forEach(function(el){
+    el.addEventListener('click', function(){
+      var id = el.getAttribute('data-target');
+      closeMenu();
+      setTimeout(function(){ goTo(id); }, 320);
+    });
+  });
+
+  // ── Nav shadow ──
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.pageYOffset > 20);
+    // active link
+    var scrollY = window.pageYOffset;
+    var current = '';
+    document.querySelectorAll('section[id]').forEach(function(sec){
+      if(scrollY >= sec.offsetTop - NAV_H - 10) current = sec.id;
+    });
+    document.querySelectorAll('.nav-links a[data-target]').forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('data-target') === current);
+    });
+  }, {passive:true});
+
+  // ── Scroll reveal ──
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+
+})();
+</script>
+</body>
+</html>
